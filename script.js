@@ -6,8 +6,6 @@ let i=0;
 let val="";
 let x; 
 let y;
-let c=2;
-let z=1;
 let result;
 let output = document.querySelector('#output');
 let buttons = document.querySelector('#allButtons');
@@ -15,9 +13,14 @@ buttons.addEventListener('click', ({ target }) => {
     if (!target.hasAttribute('value')) {
       return;
     }
+    if(val==="=" && (target.value!=="+"&&target.value!=="-"&&target.value!=="*"&&target.value!=="/")){
+        output.textContent="";
+        array=[];
+        
+    }
     if(target.value=="+" || target.value=="-" || target.value=="*" || target.value=="/"){
         
-        let temp = val.replace(/[-*/+]/,"");;
+        let temp = val.replace(/[-*/+=]/,"");;
         console.log(temp);
         cleanVal = parseInt(temp);
         array.push(cleanVal);
@@ -32,7 +35,7 @@ buttons.addEventListener('click', ({ target }) => {
          operator=target.value;
     }
     if(target.value=="="){
-    let temp = val.replace(/[-*/+]/,"");
+    let temp = val.replace(/[-*/+=]/,"");
         cleanVal = parseInt(temp);
         array.push(cleanVal);
         val="";
@@ -42,11 +45,15 @@ buttons.addEventListener('click', ({ target }) => {
         result = operate(x,y,operator);
         console.log(result);
         if(result==NaN)result="You cant use 0 in division!";
-
+        
+        
+       
     }
+
     output.textContent += target.value;
     if(result!=undefined && target.value=="=")output.textContent+=Math.round(result * 1000)/1000;
     val+=target.value;
+  
      if(target.value==='clear'){
         output.textContent="";
         val="";
